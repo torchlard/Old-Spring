@@ -1,0 +1,66 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'sandbox.Entry'
+
+repositories {
+  mavenCentral()
+}
+
+springBootVersion = '2.1.4.RELEASE'
+buildscript {
+	ext {
+		springBootVersion = '2.1.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+dependencies {
+  compile("org.springframework.boot:spring-boot:${springBootVersion}")
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.1.4.RELEASE'
+  compile('org.springframework.boot:spring-boot-starter-data-jpa:2.1.4.RELEASE')
+  compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.4.RELEASE'
+  compile group: 'com.github.jsqlparser', name: 'jsqlparser', version: '2.0'
+  compile group: 'com.querydsl', name: 'querydsl-jpa', version: '4.2.1'
+  // compile("org.springframework.boot:spring-boot-starter-logging")
+
+  // compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	// compile('org.springframework.boot:spring-boot-starter-web')
+  // compile('org.springframework.boot:spring-boot-starter-security')
+	// compile('org.springframework.session:spring-session')
+
+  runtimeClasspath group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
+
+  // testCompile('org.springframework.boot:spring-boot-starter-test')
+
+  // testCompile('org.junit.jupiter:junit-jupiter-api:5.3.2')
+  // testCompile('org.junit.jupiter:junit-jupiter-params:5.3.2')
+  // testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.2')
+}
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src/main/java']
+    }
+    resources {
+      srcDirs = ['src/main/resources']
+    }
+  }
+}
+
+jar {
+  baseName = 'app'
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+}
